@@ -8,8 +8,6 @@ echo '\n\n' #print new line to give some space
 docker tag lionelritchie29/karsajobs:latest ghcr.io/lionelritchie29/karsajobs:latest
 echo '\n\n' #print new line to give some space
 
-# export github token to env variable
-export GITHUB_PACKAGES_TOKEN=
 
 # login to github packages
 echo $GITHUB_PACKAGES_TOKEN | docker login ghcr.io -u lionelritchie29 --password-stdin
