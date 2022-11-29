@@ -31,6 +31,9 @@ spec:
               mountPath: /data/db
             - name: mongodb-secret-mount
               mountPath: /etc/mongo-credentials
+            - name: mongodb-config-mount
+              mountPath: /config
+              readOnly: true
       volumes:
         - name: mongodb-persistent-storage
           persistentVolumeClaim:
@@ -38,3 +41,9 @@ spec:
         - name: mongodb-secret-mount
           secret:
             secretName: mongodb-secret
+        - name: mongodb-config-mount
+          configMap:
+            name: mongodb-config
+            items:
+              - key: mongo.conf
+                path: mongo.conf
