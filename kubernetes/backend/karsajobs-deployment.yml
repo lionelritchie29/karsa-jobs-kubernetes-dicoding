@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: karsajobs-backend
+  labels:
+    app: karsajobs
+    type: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      type: backend
+  template:
+    metadata:
+      labels:
+        app: karsajobs
+        type: backend
+    spec:
+      containers:
+        - name: karsajobs-backend-server
+          image: ghcr.io/lionelritchie29/karsajobs:latest
+          ports:
+            - containerPort: 8080
