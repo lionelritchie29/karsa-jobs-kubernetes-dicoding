@@ -19,23 +19,22 @@ spec:
         - image: mongo:latest
           name: mongodb
           env:
-            - name: MONGO_INITDB_ROOT_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: mongodb-secret
-                  key: MONGO_ROOT_USERNAME
-            - name: MONGO_INITDB_ROOT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: mongodb-secret
-                  key: MONGO_ROOT_PASSWORD
+            - name: MONGO_INITDB_ROOT_USERNAME_FILE
+              value: /etc/mongo-credentials/MONGO_ROOT_USERNAME
+            - name: MONGO_INITDB_ROOT_PASSWORD_FILE
+              value: /etc/mongo-credentials/MONGO_ROOT_PASSWORD
           ports:
             - containerPort: 27017
               name: mongodb
           volumeMounts:
             - name: mongodb-persistent-storage
               mountPath: /data/db
+            - name: mongodb-secret-mount
+              mountPath: /etc/mongo-credentials
       volumes:
         - name: mongodb-persistent-storage
           persistentVolumeClaim:
             claimName: mongodb-pv-claim
+        - name: mongodb-secret-mount
+          secret:
+            secretName: mongodb-secret
