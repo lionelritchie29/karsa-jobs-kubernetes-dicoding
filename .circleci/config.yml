@@ -33,6 +33,7 @@ jobs:
     steps:
       - checkout
       - run: cd karsajobs-backend
+      - run: ls -la
       - run: go test -v -short --count=1 $(go list ./...)
   build-app-karsajobs:
     docker:
