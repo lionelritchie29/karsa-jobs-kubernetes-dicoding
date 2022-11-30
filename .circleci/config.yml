@@ -8,11 +8,10 @@ jobs:
     executor: docker/machine
     steps:
       - checkout
-      - docker/hadolint
+      - docker/hadolint:
           dockerfiles: karsajobs-ui/Dockerfile
 
 workflows:
   frontend-workflow:
     jobs:
       - lint-frontend
-      
