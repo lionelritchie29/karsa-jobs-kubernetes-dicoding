@@ -8,6 +8,7 @@ jobs:
     docker:
       - image: cimg/base:stable
     steps:
+      - checkout
       - setup_remote_docker
       - run: |
           ls -a 
