@@ -3,8 +3,16 @@ version: 2.1
 orbs:
   docker: circleci/docker@2.1.4
 
-workflows:
-  lint:
-    jobs:
+jobs:
+  lint-frontend-dockerfile:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
       - docker/hadolint:
           dockerfiles: 'karsajobs-ui/Dockerfile'
+
+workflows:
+  frontend_workflow:
+    jobs:
+      - lint-frontend-dockerfile
