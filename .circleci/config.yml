@@ -1,17 +1,22 @@
 version: 2.1
 
+orbs:
+  docker: circleci/docker@2.1.4
+
 jobs:
-  lint-frontend:
+  build-push-frontend:
     docker:
       - image: cimg/base:stable
     steps:
-      - setup_remote_docker:
-          version: 20.10.18
-      - run: docker pull hadolint/hadolint
-      - run: ls
-      - run: docker run --rm -i hadolint/hadolint < ./karsajobs-ui/Dockerfile
+      - setup_remote_docker
+      - run: docker build -t lionelritchie29/karsajobs-ui:latest karsajobs-ui/Dockerfile
+      - run: docker tag lionelritchie29/karsajobs-ui:latest ghcr.io/lionelritchie29/karsajobs-ui:latest
+      - run: echo $GITHUB_TOKEN | docker login ghcr.io -u lionelritchie29 --password-stdin
+      - run: docker push ghcr.io/lionelritchie29/karsajobs-ui:latest
 
 workflows:
   frontend-workflows:
     jobs:
-      - lint-frontend
+      - docker/hadolint:
+          dockerfiles: karsajobs-ui/Dockerfile
+      - build-push-frontend
