@@ -51,7 +51,7 @@ workflows:
       - lint-frontend-dockerfile
       - build-app-karsajobs-ui:
           requires:
-            - lint-dockerfile
+            - lint-frontend-dockerfile
   backend-workflows:
     jobs:
       - lint-backend-dockerfile
