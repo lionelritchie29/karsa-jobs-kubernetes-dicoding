@@ -1,13 +1,16 @@
 version: 2.1
 
-orbs:
-  docker: circleci/docker@2.1.4
+jobs:
+  lint-frontend:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - setup_remote_docker:
+          version: 20.10.18
+      - run: docker pull hadolint/hadolint
+      - run: hadolint karsajobs-ui/Dockerfile
 
 workflows:
-  frontend-workflow:
+  frontend-workflows:
     jobs:
-      - docker/hadolint:
-          dockerfiles: karsajobs-ui/Dockerfile
-      - docker/publish:
-          image: ghcr.io/lionelritchie29/karsajobs-ui
-          dockerfile: karsajobs-ui/Dockerfile
+      - lint-frontend
