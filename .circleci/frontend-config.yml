@@ -1,0 +1,10 @@
+version: 2.1
+
+orbs:
+  docker: circleci/docker@2.1.4
+
+workflows:
+  lint:
+    jobs:
+      - docker/hadolint:
+          dockerfiles: 'karsajobs-ui/Dockerfile'
