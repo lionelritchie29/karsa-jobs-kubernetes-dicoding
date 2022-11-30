@@ -9,7 +9,9 @@ jobs:
       - image: cimg/base:stable
     steps:
       - setup_remote_docker
-      - run: docker build -t lionelritchie29/karsajobs-ui:latest karsajobs-ui/Dockerfile
+      - run: |
+          ls -a 
+          docker build -t lionelritchie29/karsajobs-ui:latest karsajobs-ui/Dockerfile
       - run: docker tag lionelritchie29/karsajobs-ui:latest ghcr.io/lionelritchie29/karsajobs-ui:latest
       - run: echo $GITHUB_TOKEN | docker login ghcr.io -u lionelritchie29 --password-stdin
       - run: docker push ghcr.io/lionelritchie29/karsajobs-ui:latest
