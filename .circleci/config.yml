@@ -3,15 +3,11 @@ version: 2.1
 orbs:
   docker: circleci/docker@2.1.4
 
-jobs:
-  lint-frontend:
-    executor: docker/machine
-    steps:
-      - checkout
-      - docker/hadolint:
-          dockerfiles: karsajobs-ui/Dockerfile
-
 workflows:
   frontend-workflow:
     jobs:
-      - lint-frontend
+      - docker/hadolint:
+          dockerfiles: karsajobs-ui/Dockerfile
+      - docker/publish:
+          image: ghcr.io/lionelritchie29/karsajobs-ui
+          dockerfile: karsajobs-ui/Dockerfile
