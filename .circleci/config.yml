@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  lint-dockerfile:
+  lint-frontend-dockerfile:
     docker:
       - image: cimg/base:stable
     steps:
@@ -9,6 +9,14 @@ jobs:
       - setup_remote_docker
       - run: docker pull hadolint/hadolint
       - run: docker run --rm -i ghcr.io/hadolint/hadolint < karsajobs-ui/Dockerfile
+  lint-backend-dockerfile:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run: docker pull hadolint/hadolint
+      - run: docker run --rm -i ghcr.io/hadolint/hadolint < karsajobs-backend/Dockerfile
   build-app-karsajobs-ui:
     docker:
       - image: cimg/base:stable
@@ -19,11 +27,37 @@ jobs:
       - run: docker tag lionelritchie29/karsajobs-ui:latest ghcr.io/lionelritchie29/karsajobs-ui:latest
       - run: echo $GITHUB_TOKEN | docker login ghcr.io -u lionelritchie29 --password-stdin
       - run: docker push ghcr.io/lionelritchie29/karsajobs-ui:latest
+  test-app:
+    docker:
+      - image: cimg/go:1.19.3
+    steps:
+      - checkout
+      - run: cd karsajobs-backend
+      - run: go test -v -short --count=1 $(go list ./...)
+  build-app-karsajobs:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run: docker build -t lionelritchie29/karsajobs:latest ./karsajobs-backend
+      - run: docker tag lionelritchie29/karsajobs:latest ghcr.io/lionelritchie29/karsajobs:latest
+      - run: echo $GITHUB_TOKEN | docker login ghcr.io -u lionelritchie29 --password-stdin
+      - run: docker push ghcr.io/lionelritchie29/karsajobs:latest
 
 workflows:
   frontend-workflows:
     jobs:
-      - lint-dockerfile
+      - lint-frontend-dockerfile
       - build-app-karsajobs-ui:
           requires:
             - lint-dockerfile
+  backend-workflows:
+    jobs:
+      - lint-backend-dockerfile
+      - test-app:
+          requires:
+            - lint-backend-dockerfile
+      - build-app-karsajobs:
+          requires:
+            - test-app
