@@ -32,9 +32,7 @@ jobs:
       - image: cimg/go:1.19.3
     steps:
       - checkout
-      - run: cd karsajobs-backend
-      - run: ls -la
-      - run: go test -v -short --count=1 $(go list ./...)
+      - run: go test -v -short --count=1 $(go list ./karsajobs-backend/...)
   build-app-karsajobs:
     docker:
       - image: cimg/base:stable
