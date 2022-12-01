@@ -1,0 +1,3 @@
+Github Repo: https://github.com/lionelritchie29/karsa-jobs-kubernetes-dicoding
+Github Package Frontend: https://github.com/users/lionelritchie29/packages/container/package/karsajobs-ui
+Github Package Backedn: https://github.com/users/lionelritchie29/packages/container/package/karsajobs

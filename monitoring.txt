@@ -1,0 +1,34 @@
+NAME                                                           READY   STATUS    RESTARTS      AGE
+pod/alertmanager-kube-prometheus-stack-alertmanager-0          2/2     Running   5 (12h ago)   37h
+pod/kube-prometheus-stack-grafana-7fc4587cc6-gp459             3/3     Running   6 (12h ago)   37h
+pod/kube-prometheus-stack-kube-state-metrics-b64cf5876-c99vt   1/1     Running   2 (12h ago)   37h
+pod/kube-prometheus-stack-operator-7fd9f478df-496x9            1/1     Running   2 (12h ago)   37h
+pod/kube-prometheus-stack-prometheus-node-exporter-98vbn       1/1     Running   2 (12h ago)   37h
+pod/prometheus-kube-prometheus-stack-prometheus-0              2/2     Running   4 (12h ago)   37h
+
+NAME                                                     TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                      AGE
+service/alertmanager-operated                            ClusterIP   None             <none>        9093/TCP,9094/TCP,9094/UDP   37h
+service/kube-prometheus-stack-alertmanager               ClusterIP   10.103.84.93     <none>        9093/TCP                     37h
+service/kube-prometheus-stack-grafana                    ClusterIP   10.100.124.114   <none>        80/TCP                       37h
+service/kube-prometheus-stack-kube-state-metrics         ClusterIP   10.107.221.122   <none>        8080/TCP                     37h
+service/kube-prometheus-stack-operator                   ClusterIP   10.105.191.116   <none>        443/TCP                      37h
+service/kube-prometheus-stack-prometheus                 ClusterIP   10.106.221.86    <none>        9090/TCP                     37h
+service/kube-prometheus-stack-prometheus-node-exporter   ClusterIP   10.110.158.169   <none>        9100/TCP                     37h
+service/prometheus-operated                              ClusterIP   None             <none>        9090/TCP                     37h
+
+NAME                                                            DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE
+daemonset.apps/kube-prometheus-stack-prometheus-node-exporter   1         1         1       1            1           <none>          37h
+
+NAME                                                       READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/kube-prometheus-stack-grafana              1/1     1            1           37h
+deployment.apps/kube-prometheus-stack-kube-state-metrics   1/1     1            1           37h
+deployment.apps/kube-prometheus-stack-operator             1/1     1            1           37h
+
+NAME                                                                 DESIRED   CURRENT   READY   AGE
+replicaset.apps/kube-prometheus-stack-grafana-7fc4587cc6             1         1         1       37h
+replicaset.apps/kube-prometheus-stack-kube-state-metrics-b64cf5876   1         1         1       37h
+replicaset.apps/kube-prometheus-stack-operator-7fd9f478df            1         1         1       37h
+
+NAME                                                               READY   AGE
+statefulset.apps/alertmanager-kube-prometheus-stack-alertmanager   1/1     37h
+statefulset.apps/prometheus-kube-prometheus-stack-prometheus       1/1     37h
