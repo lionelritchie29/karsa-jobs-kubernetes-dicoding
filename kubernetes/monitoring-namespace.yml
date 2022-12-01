@@ -1,3 +1,4 @@
+# create a new namespace with name 'monitoring'
 apiVersion: v1
 kind: Namespace
 metadata:

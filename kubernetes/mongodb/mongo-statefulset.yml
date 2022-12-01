@@ -1,3 +1,13 @@
+#create a k8s StatefulSet with name 'mongodb'
+#this statefulset will create only 1 pod (1 replica)
+#this statefulset will use headless service named 'mongodb' and will create pods with label 'type:db'
+#container created in the pod will use 'mongo:latest' image and will have name of 'mongodb'
+#each container will have env variables: 'MONGO_INITDB_ROOT_USERNAME_FILE' and 'MONGO_INITDB_ROOT_PASSWORD_FILE'
+#the value of env variable is retrieved from /etc/mongo-credentials directory
+#this directory is mounted from 'mongodb-secret-mount' volume
+#other than that, the container will also have its '/data/db' folder mounted from 'mongodb-persistent-storage' pv
+#finally, the container will also have its '/config' directory mounted with 'mongodb-config-mount' volume,
+#'mongo.conf' file will be created in that directory and contain the value of the created configmap 'mongodb-config'
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
